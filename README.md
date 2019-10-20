@@ -1,6 +1,6 @@
 ## Abandoned
 
-Please see [https://github.com/tattersoftware/WordPress-OCR-Plugin](https://github.com/tattersoftware/WordPress-OCR-Plugin)
+Please see [https://github.com/tattersoftware/wp-tesseract](https://github.com/tattersoftware/wp-tesseract)
 
 # OCR 
 **Contributors:** formasfunction  
