@@ -3,11 +3,11 @@
 /**
  * Fired during plugin deactivation
  *
- * @link       http://example.com
+ * @link       https://github.com/tattersoftware/wp-tesseract
  * @since      1.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
+ * @package    WP_Tesseract
+ * @subpackage WP_Tesseract/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      1.0.0
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
- * @author     Your Name <email@example.com>
+ * @package    WP_Tesseract
+ * @subpackage WP_Tesseract/includes
+ * @author     Tatter Software <support@tattersoftware.com>
  */
-class Plugin_Name_Deactivator {
+class WP_Tesseract_Deactivator {
 
 	/**
 	 * Short Description. (use period)

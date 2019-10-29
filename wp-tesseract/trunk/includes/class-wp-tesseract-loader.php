@@ -3,11 +3,11 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       http://example.com
+ * @link       https://github.com/tattersoftware/wp-tesseract
  * @since      1.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
+ * @package    WP_Tesseract
+ * @subpackage WP_Tesseract/includes
  */
 
 /**
@@ -17,11 +17,12 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
- * @author     Your Name <email@example.com>
+ * @since      1.0.0
+ * @package    WP_Tesseract
+ * @subpackage WP_Tesseract/includes
+ * @author     Tatter Software <support@tattersoftware.com>
  */
-class Plugin_Name_Loader {
+class WP_Tesseract_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.
