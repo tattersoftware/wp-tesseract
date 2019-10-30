@@ -66,7 +66,8 @@ class WP_Tesseract {
 	 *
 	 * @since    1.0.0
 	 */
-	public function __construct() {
+	public function __construct()
+	{
 		if ( defined( 'WP_TESSERACT_VERSION' ) ) {
 			$this->version = WP_TESSERACT_VERSION;
 		} else {
@@ -78,7 +79,6 @@ class WP_Tesseract {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -123,7 +123,6 @@ class WP_Tesseract {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wp-tesseract-public.php';
 
 		$this->loader = new WP_Tesseract_Loader();
-
 	}
 
 	/**

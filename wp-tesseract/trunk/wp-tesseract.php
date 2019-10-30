@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       WP-Tesseract
  * Plugin URI:        https://github.com/tattersoftware/wp-tesseract
- * Description:       Wrapper for Tesseract to provide OCR (image-to-text) for WordPress
+ * Description:       Add Tesseract's OCR (image-to-text) functionality to WordPress. Requires pre-installed software.
  * Version:           1.0.0
  * Author:            Tatter Software
  * Author URI:        https://tattersoftware.com/
@@ -26,7 +26,8 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) )
+{
 	die;
 }
 
@@ -41,7 +42,8 @@ define( 'WP_TESSERACT_VERSION', '1.0.0' );
  * The code that runs during plugin activation.
  * This action is documented in includes/class-wp-tesseract-activator.php
  */
-function activate_plugin_name() {
+function activate_wp_tesseract()
+{
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-tesseract-activator.php';
 	WP_Tesseract_Activator::activate();
 }
@@ -50,7 +52,8 @@ function activate_plugin_name() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-wp-tesseract-deactivator.php
  */
-function deactivate_plugin_name() {
+function deactivate_wp_tesseract()
+{
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-tesseract-deactivator.php';
 	WP_Tesseract_Deactivator::deactivate();
 }
@@ -73,10 +76,11 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-wp-tesseract.php';
  *
  * @since    1.0.0
  */
-function run_plugin_name() {
-
+function run_wp_tesseract()
+{
 	$plugin = new WP_Tesseract();
 	$plugin->run();
 
 }
-run_plugin_name();
+
+run_wp_tesseract();

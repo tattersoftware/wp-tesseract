@@ -20,8 +20,8 @@
  * @subpackage WP_Tesseract/includes
  * @author     Tatter Software <support@tattersoftware.com>
  */
-class WP_Tesseract_Deactivator {
-
+class WP_Tesseract_Deactivator
+{
 	/**
 	 * Short Description. (use period)
 	 *
@@ -30,7 +30,8 @@ class WP_Tesseract_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-
+		delete_option('ocr_imagemagick_path');
+		delete_option('ocr_tesseract_path');
+		delete_option('ocr_resize_percent');
 	}
-
 }
