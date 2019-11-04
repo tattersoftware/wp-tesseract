@@ -133,4 +133,47 @@ class WP_Tesseract_Admin {
 	public function page_options() {
 		include( plugin_dir_path( __FILE__ ) . 'partials/wp-tesseract-admin-display.php' );
 	}
+
+	/**
+	 * Perform the image conversion and OCR analysis
+	 *
+	 * @param int  $image_id  ID of the image to analyze
+	 */
+	function analyze_image(int $image_id)
+	{
+		$upload_dir = wp_upload_dir();
+		$upload_dir = $upload_dir['basedir'];
+		$image_path = $upload_dir . '/' . get_post_meta($image_id, '_wp_attached_file', true);
+		
+		// Only go through the steps for OCR if the file is an image
+		if (getimagesize($image_path))
+		{
+			$imagemagick  = get_option('ocr_imagemagick_path');
+			$tesseract    = get_option('ocr_tesseract_path');
+			$size_percent = get_option('ocr_resize_percent');
+
+			// Only analyze the image if the plugin configuration has been filled in
+			if ($imagemagick && $tesseract && $size_percent)
+			{
+				$temp_image = $upload_dir . '/ocr_image.tif'; // Tesseract used to require a tiff
+				$temp_text  = $upload_dir . '/ocr_text';
+				$command    = $imagemagick . ' -resize ' . $size_percent . '% ' . $image_path . ' ' . $temp_image . ' && ' .
+					$tesseract . ' ' . $temp_image . ' ' . $temp_text . ' && ' .
+					'cat ' . $temp_text . '.txt && rm -f ' . $temp_text . '.txt ' . $temp_image;
+				
+				if ($ocr_text = shell_exec($command))
+				{
+					wp_insert_post([
+						'post_title'   => basename(get_attached_file($image_id)),
+						'post_content' => $ocr_text,
+						'post_status'  => 'publish',
+					]);
+				}
+				else
+				{
+					throw new \RuntimeException('No OCR text returned: ' . $command);
+				}
+			}
+		}
+	}
 }

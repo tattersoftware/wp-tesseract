@@ -158,7 +158,12 @@ class WP_Tesseract {
 
 		// Add the submenu
 		add_action('admin_menu', [$plugin_admin, 'add_menu']);
+		
+		// Register settings
 		add_action('admin_init', [$plugin_admin, 'register_settings']);
+		
+		// Hook attachment uploads
+		add_action('add_attachment', [$plugin_admin, 'analyze_image']);
 	}
 
 	/**
