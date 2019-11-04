@@ -51,72 +51,33 @@ class WP_Tesseract_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-
-		// Add the submenu
-		add_action('admin_menu', [$this, 'addSettingsPage']);
 	}
 
 	/**
 	 * Add the admin page under Settings
 	 */
-	public function addSettingsPage()
+	public function add_menu()
 	{
-		add_submenu_page('options-general.php', 'Tesseract Configuration', 'Tesseract', 'administrator', __FILE__, [$this, 'settingsPageHtml']);
-		add_action('admin_init', [$this, 'registerSettings']);
+		add_submenu_page(
+			'options-general.php',
+			'Tesseract Configuration',
+			'Tesseract',
+			'administrator',
+			__FILE__,
+			[$this, 'page_options']
+		);
 	}
 	
 	/**
 	 * Register each setting to the group
 	 */
-	public function registerSettings()
+	public function register_settings()
 	{
 		register_setting('ocr-settings-group', 'ocr_imagemagick_path');
 		register_setting('ocr-settings-group', 'ocr_tesseract_path');
 		register_setting('ocr-settings-group', 'ocr_resize_percent');
 	}
 	
-	/**
-	 * The actual HTML for the settings page form
-	 */
-	public function settingsPageHtml()
-	{
-?>
-		<div class="wrap">
-			<h2>Tesseract Settings</h2>
-			<p>
-				The Tesseract plugin requires two command line utilities:
-				<a target="_blank" href="https://www.imagemagick.org">ImageMagick</a> for preparing the images and
-				<a target="_blank" href="https://github.com/tesseract-ocr/">Tesseract</a> for the actual OCR.
-				These utilities must be manually installed on your server and executable by PHP.
-				<strong>This process, and consequently this plugin, is recommended only for advanced users.</strong>
-			</p>
-			
-			<form method="post" action="options.php">
-
-				<?php settings_fields('ocr-settings-group'); ?>
-
-				<table class="form-table">
-					<tr valign="top">
-						<th scope="row">Absolute Path to <a target="_blank" href="https://www.imagemagick.org">ImageMagick</a><br/><i style="font-size:10px;">(ex: /usr/local/bin/magick)</i></th>
-						<td><input type="text" name="ocr_imagemagick_path" value="<?= get_option('ocr_imagemagick_path'); ?>" /></td>
-					</tr>
-					<tr valign="top">
-						<th scope="row">Absolute Path to <a target="_blank" href="https://github.com/tesseract-ocr/">Tesseract</a><br><i style="font-size:10px;">(ex: /usr/bin/tesseract)</i></th>
-						<td><input type="text" name="ocr_tesseract_path" value="<?= get_option('ocr_tesseract_path'); ?>" /></td>
-					</tr>
-					<tr valign="top">
-						<th scope="row">Resize percentage<br><i style="font-size:10px;">A higher % might lead to more accurate OCR but will take longer to calculate. Default = 200%</i></th>
-						<td><input type="text" name="ocr_resize_percent" value="<?= get_option('ocr_resize_percent'); ?>" />%</td>
-					</tr>
-				</table>
-				<p class="submit">
-					<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
-				</p>
-			</form>
-		</div>
-<?php
-	}
-
 	/**
 	 * Register the stylesheets for the admin area.
 	 *
@@ -162,5 +123,14 @@ class WP_Tesseract_Admin {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-tesseract-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
-
+	
+	/**
+	 * Creates the options page
+	 *
+	 * @since 		1.0.0
+	 * @return 		void
+	 */
+	public function page_options() {
+		include( plugin_dir_path( __FILE__ ) . 'partials/wp-tesseract-admin-display.php' );
+	}
 }
