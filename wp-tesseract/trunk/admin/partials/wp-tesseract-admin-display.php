@@ -42,6 +42,10 @@
 				<th scope="row">Resize percentage<br><i style="font-size:10px;">A higher % might lead to more accurate OCR but will take longer to calculate. Default = 200%</i></th>
 				<td><input type="text" name="ocr_resize_percent" value="<?= get_option('ocr_resize_percent'); ?>" />%</td>
 			</tr>
+			<tr valign="top">
+				<th scope="row">Language string<br><i style="font-size:10px;">(ex: eng, or eng+heb)</i></th>
+				<td><input type="text" name="ocr_language_string" value="<?= get_option('ocr_language_string'); ?>" /></td>
+			</tr>
 		</table>
 		<p class="submit">
 			<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
