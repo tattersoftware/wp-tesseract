@@ -76,6 +76,7 @@ class WP_Tesseract_Admin {
 		register_setting('ocr-settings-group', 'ocr_imagemagick_path');
 		register_setting('ocr-settings-group', 'ocr_tesseract_path');
 		register_setting('ocr-settings-group', 'ocr_resize_percent');
+		register_setting('ocr-settings-group', 'ocr_language_string');
 	}
 	
 	/**
@@ -148,9 +149,10 @@ class WP_Tesseract_Admin {
 		// Only go through the steps for OCR if the file is an image
 		if (getimagesize($image_path))
 		{
-			$imagemagick  = get_option('ocr_imagemagick_path');
-			$tesseract    = get_option('ocr_tesseract_path');
-			$size_percent = get_option('ocr_resize_percent');
+			$imagemagick     = get_option('ocr_imagemagick_path');
+			$tesseract       = get_option('ocr_tesseract_path');
+			$size_percent    = get_option('ocr_resize_percent');
+			$language_string = get_option('ocr_language_string');
 
 			// Only analyze the image if the plugin configuration has been filled in
 			if ($imagemagick && $tesseract && $size_percent)
@@ -158,7 +160,7 @@ class WP_Tesseract_Admin {
 				$temp_image = $upload_dir . '/ocr_image.tif'; // Tesseract used to require a tiff
 				$temp_text  = $upload_dir . '/ocr_text';
 				$command    = $imagemagick . ' -resize ' . $size_percent . '% ' . $image_path . ' ' . $temp_image . ' && ' .
-					$tesseract . ' ' . $temp_image . ' ' . $temp_text . ' && ' .
+					$tesseract . ' ' . $temp_image . ' ' . $temp_text . ' -l ' . $ocr_language_string . ' && ' .
 					'cat ' . $temp_text . '.txt && rm -f ' . $temp_text . '.txt ' . $temp_image;
 				
 				if ($ocr_text = shell_exec($command))

@@ -31,7 +31,7 @@
 
 		<table class="form-table">
 			<tr valign="top">
-				<th scope="row">Absolute Path to <a target="_blank" href="https://www.imagemagick.org">ImageMagick</a><br/><i style="font-size:10px;">(ex: /usr/local/bin/magick)</i></th>
+				<th scope="row">Absolute Path to <a target="_blank" href="https://www.imagemagick.org">ImageMagick</a> `convert` command<br/><i style="font-size:10px;">(ex: /usr/local/bin/convert)</i></th>
 				<td><input type="text" name="ocr_imagemagick_path" value="<?= get_option('ocr_imagemagick_path'); ?>" /></td>
 			</tr>
 			<tr valign="top">

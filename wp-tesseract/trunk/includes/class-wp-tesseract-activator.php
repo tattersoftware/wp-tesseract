@@ -31,13 +31,10 @@ class WP_Tesseract_Activator
 	 */
 	public static function activate()
 	{
-		// Set the default path to ImageMagick
-		add_option('ocr_imagemagick_path', '/usr/local/bin/magick');
-
-		// Set the default path to Tesseract
+		// Set defaults for all the settings
+		add_option('ocr_imagemagick_path', '/usr/local/bin/convert');
 		add_option('ocr_tesseract_path', '/usr/bin/tesseract');
-
-		// Set the default value for the resize percent
 		add_option('ocr_resize_percent', 200);
+		add_option('ocr_language_string', 'eng');
 	}
 }
