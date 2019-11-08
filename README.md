@@ -1,5 +1,5 @@
 # OCR 
-**Contributors:** formasfunction, tattersoftware  
+**Contributors:** tattersoftware, formasfunction
 **Tags:** ocr, optical text recognition, images, attachments, media, tesseract  
 **Requires at least:** 2.9  
 **Tested up to:** 5.2.4  
@@ -29,9 +29,9 @@ These utilities must be manually installed on your server and executable by PHP.
 
 1. Install Tesseract OCR on your server ([Tesseract wiki](https://github.com/tesseract-ocr/tesseract/wiki/))
 2. Install ImageMagick on your server ([https://www.imagemagick.org](https://www.imagemagick.org))
-3. Upload `ocr.php` to the `/wp-content/plugins/` directory
+3. Upload the `trunk` directory to your `/wp-content/plugins/` directory
 4. Activate the plugin through the `Plugins` menu in WordPress
-5. Configure the plugin through the `Plugins > OCR` link in the sidebar menu in WordPress
+5. Configure the plugin through the `Settings > Tesseract` link in the sidebar menu in WordPress
 
 
 ## Frequently Asked Questions
@@ -75,16 +75,7 @@ clean image to read.
 
 ### Where is the detected text stored? 
 
-The text detected by the OCR plugin is added to the image as a
-[custom field](https://wordpress.org/support/article/custom-fields/) named `ocr_text`. See
-[https://wordpress.org/support/article/custom-fields/](https://wordpress.org/support/article/custom-fields/)
-for instructions on using the `ocr_text` field in your templates.
-
-### Where can I edit the detected text? 
-
-The text detected by the OCR plugin is available in a text area labeled 'OCR Text' both in
-the 'Add an Image' model while attaching an image to a post and while editing a previously
-uploaded image under the 'Media' section of your WordPress install.
+The text detected by the OCR plugin is added as a new post, named after the image file.
 
 ### What is the 'Resize percentage' configuration option?
 
