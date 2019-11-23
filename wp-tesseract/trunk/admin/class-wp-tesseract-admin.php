@@ -67,7 +67,7 @@ class WP_Tesseract_Admin {
 			[$this, 'page_options']
 		);
 	}
-	
+
 	/**
 	 * Register each setting to the group
 	 */
@@ -78,7 +78,7 @@ class WP_Tesseract_Admin {
 		register_setting('ocr-settings-group', 'ocr_resize_percent');
 		register_setting('ocr-settings-group', 'ocr_language_string');
 	}
-	
+
 	/**
 	 * Register the stylesheets for the admin area.
 	 *
@@ -124,7 +124,7 @@ class WP_Tesseract_Admin {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-tesseract-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
-	
+
 	/**
 	 * Creates the options page
 	 *
@@ -139,43 +139,123 @@ class WP_Tesseract_Admin {
 	 * Perform the image conversion and OCR analysis
 	 *
 	 * @param int  $image_id  ID of the image to analyze
+	 *
+	 * @return bool Success or failure
 	 */
-	function analyze_image(int $image_id)
+	function analyze_image(int $image_id): bool
 	{
+		// Verify the tools
+		if (! extension_loaded('gd'))
+		{
+			return false;
+		}
+
+		$tesseract = get_option('ocr_tesseract_path');
+		if (empty($tesseract) || ! is_executable($tesseract))
+		{
+			return false;
+		}
+
+		// Validate the settings
+		$size_percent = get_option('ocr_resize_percent');
+		if (empty($size_percent) || ! is_numeric($size_percent))
+		{
+			return false;
+		}
+
+		if (! $language_string = get_option('ocr_language_string'))
+		{
+			return false;
+		}
+
+		// Find the uploaded file
 		$upload_dir = wp_upload_dir();
 		$upload_dir = $upload_dir['basedir'];
 		$image_path = $upload_dir . '/' . get_post_meta($image_id, '_wp_attached_file', true);
-		
-		// Only go through the steps for OCR if the file is an image
-		if (getimagesize($image_path))
-		{
-			$imagemagick     = get_option('ocr_imagemagick_path');
-			$tesseract       = get_option('ocr_tesseract_path');
-			$size_percent    = get_option('ocr_resize_percent');
-			$language_string = get_option('ocr_language_string');
 
-			// Only analyze the image if the plugin configuration has been filled in
-			if ($imagemagick && $tesseract && $size_percent)
-			{
-				$temp_image = $upload_dir . '/ocr_image.tif'; // Tesseract used to require a tiff
-				$temp_text  = $upload_dir . '/ocr_text';
-				$command    = $imagemagick . ' -resize ' . $size_percent . '% ' . $image_path . ' ' . $temp_image . ' && ' .
-					$tesseract . ' ' . $temp_image . ' ' . $temp_text . ' -l ' . $ocr_language_string . ' && ' .
-					'cat ' . $temp_text . '.txt && rm -f ' . $temp_text . '.txt ' . $temp_image;
-				
-				if ($ocr_text = shell_exec($command))
-				{
-					wp_insert_post([
-						'post_title'   => basename(get_attached_file($image_id)),
-						'post_content' => $ocr_text,
-						'post_status'  => 'publish',
-					]);
-				}
-				else
-				{
-					throw new \RuntimeException('No OCR text returned: ' . $command);
-				}
-			}
+		// Veriy the file is actually an image
+		$size = getimagesize($image_path);
+		if (! is_array($size) || count($size) < 3)
+		{
+			return false;
 		}
+		$width  = ($size[0] * $size_percent) / 100;
+		$height = ($size[1] * $size_percent) / 100;
+
+		// Use the correct source format
+		switch ($size[2])
+		{
+			case IMAGETYPE_BMP:      $function = 'imagecreatefrombmp'; break;
+			case IMAGETYPE_GIF:      $function = 'imagecreatefromgif'; break;
+			case IMAGETYPE_JPEG:     $function = 'imagecreatefromjpeg'; break;
+			case IMAGETYPE_JPEG2000: $function = 'imagecreatefromjpeg'; break;
+			case IMAGETYPE_PNG:      $function = 'imagecreatefrompng'; break;
+			case IMAGETYPE_WBMP:     $function = 'imagecreatefromwbmp'; break;
+			case IMAGETYPE_WEBP:     $function = 'imagecreatefromwebp'; break;
+			case IMAGETYPE_XBM:      $function = 'imagecreatefromxmb'; break;
+			default:
+				return false;
+		}
+
+		$source = @$function($image_path);
+
+		// Make sure GD was able to read it
+		if (! $source)
+		{
+			return false;
+		}
+
+		// Create the destination
+		$destination = imagecreatetruecolor($width, $height);
+
+		// Resample from the source
+		$result = imagecopyresampled($destination, $source, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
+		if (! $result)
+		{
+			return false;
+		}
+
+		// Create the new file
+		$temp_image = $upload_dir . '/ocr_image.png';
+		$result = imagepng($destination, $temp_image, 0);
+		if (! $result)
+		{
+			return false;
+		}
+
+		// Define a text destination
+		$temp_text  = $upload_dir . '/ocr_text.txt';
+
+		// Run Tesseract against the image
+		$command = $tesseract . ' ' . $temp_image . ' ' . $temp_text . ' -l ' . $ocr_language_string;
+		exec($command, $output, $return);
+
+		// Remove the scaled image
+		unlink($temp_image);
+
+		// Verify the command succeeded
+		if ($return !== 0)
+		{
+			return false;
+		}
+
+		// Get the output and remove the temp file
+		$ocr_text = file_get_contents($temp_text);
+		unlink($temp_text);
+
+		// Make sure there was some text detected
+		if (empty($ocr_text))
+		{
+			return false;
+		}
+
+		// Create a new post with the filename as title and OCR as content
+		wp_insert_post([
+			'post_title'   => basename(get_attached_file($image_id)),
+			'post_content' => $ocr_text,
+			'post_status'  => 'publish',
+		]);
+
+		return true;
 	}
 }
