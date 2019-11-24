@@ -224,10 +224,10 @@ class WP_Tesseract_Admin {
 		}
 
 		// Define a text destination
-		$temp_text  = $upload_dir . '/ocr_text.txt';
+		$temp_text  = $upload_dir . '/ocr_text';
 
 		// Run Tesseract against the image
-		$command = $tesseract . ' ' . $temp_image . ' ' . $temp_text . ' -l ' . $ocr_language_string;
+		$command = $tesseract . ' ' . $temp_image . ' ' . $temp_text . ' -l ' . $language_string;
 		exec($command, $output, $return);
 
 		// Remove the scaled image
@@ -240,8 +240,8 @@ class WP_Tesseract_Admin {
 		}
 
 		// Get the output and remove the temp file
-		$ocr_text = file_get_contents($temp_text);
-		unlink($temp_text);
+		$ocr_text = file_get_contents($temp_text . '.txt');
+		unlink($temp_text . '.txt');
 
 		// Make sure there was some text detected
 		if (empty($ocr_text))
