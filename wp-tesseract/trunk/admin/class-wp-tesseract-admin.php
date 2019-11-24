@@ -73,7 +73,6 @@ class WP_Tesseract_Admin {
 	 */
 	public function register_settings()
 	{
-		register_setting('ocr-settings-group', 'ocr_imagemagick_path');
 		register_setting('ocr-settings-group', 'ocr_tesseract_path');
 		register_setting('ocr-settings-group', 'ocr_resize_percent');
 		register_setting('ocr-settings-group', 'ocr_language_string');

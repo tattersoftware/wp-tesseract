@@ -18,10 +18,10 @@
 <div class="wrap">
 	<h2>Tesseract Settings</h2>
 	<p>
-		The Tesseract plugin requires two command line utilities:
-		<a target="_blank" href="https://www.imagemagick.org">ImageMagick</a> for preparing the images and
-		<a target="_blank" href="https://github.com/tesseract-ocr/">Tesseract</a> for the actual OCR.
-		These utilities must be manually installed on your server and executable by PHP.
+		This plugin requires the command line utility
+		<a target="_blank" href="https://github.com/tesseract-ocr/">Tesseract</a> to
+		analyze the image and perform the actual OCR.
+		This utility must be manually installed on your server and executable by PHP.
 		<strong>This process, and consequently this plugin, is recommended only for advanced users.</strong>
 	</p>
 	
@@ -30,10 +30,6 @@
 		<?php settings_fields('ocr-settings-group'); ?>
 
 		<table class="form-table">
-			<tr valign="top">
-				<th scope="row">Absolute Path to <a target="_blank" href="https://www.imagemagick.org">ImageMagick</a> `convert` command<br/><i style="font-size:10px;">(ex: /usr/local/bin/convert)</i></th>
-				<td><input type="text" name="ocr_imagemagick_path" value="<?= get_option('ocr_imagemagick_path'); ?>" /></td>
-			</tr>
 			<tr valign="top">
 				<th scope="row">Absolute Path to <a target="_blank" href="https://github.com/tesseract-ocr/">Tesseract</a><br><i style="font-size:10px;">(ex: /usr/bin/tesseract)</i></th>
 				<td><input type="text" name="ocr_tesseract_path" value="<?= get_option('ocr_tesseract_path'); ?>" /></td>

@@ -32,7 +32,6 @@ class WP_Tesseract_Activator
 	public static function activate()
 	{
 		// Set defaults for all the settings
-		add_option('ocr_imagemagick_path', '/usr/local/bin/convert');
 		add_option('ocr_tesseract_path', '/usr/bin/tesseract');
 		add_option('ocr_resize_percent', 200);
 		add_option('ocr_language_string', 'eng');

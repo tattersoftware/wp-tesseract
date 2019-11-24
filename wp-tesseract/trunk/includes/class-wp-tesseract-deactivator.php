@@ -30,8 +30,8 @@ class WP_Tesseract_Deactivator
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-		delete_option('ocr_imagemagick_path');
 		delete_option('ocr_tesseract_path');
 		delete_option('ocr_resize_percent');
+		delete_option('ocr_language_string');
 	}
 }
