@@ -1,6 +1,6 @@
-# OCR 
-**Contributors:** tattersoftware, formasfunction
-**Donate link:** https://paypal.me/tatter
+# OCR  
+**Contributors:** tattersoftware, formasfunction  
+**Donate link:** https://paypal.me/tatter  
 **Tags:** ocr, optical text recognition, images, attachments, media, tesseract  
 **Requires at least:** 2.9  
 **Tested up to:** 5.3.0  
@@ -61,7 +61,7 @@ more accurate with larger type, even if it's been upscaled from a smaller source
 wish to disable this option simply set this configuration option to `100%` and no resizing
 will occur.
 
-## Changelog 
+### What if I just want to use the plugin but not install anything?
 
-### 0.1.0 
-Initial Release.
+Hosting options are available. See [https://tattersoftware.com](https://tattersoftware.com)
+for contact info.

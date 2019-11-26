@@ -64,7 +64,15 @@ GD is used to upscale the temporary TIFF images fed to Tesseract as Tesseract is
 larger type, even if it's been upscaled from a smaller source. If you wish to disable this option simply set this
 configuration option to `100%` and no resizing will occur.
 
+= What if I just want to use the plugin but not install anything?
+
+Hosting options are available. See [https://tattersoftware.com](https://tattersoftware.com)
+for contact info.
+
 == Changelog ==
 
 = 0.1.0 =
 Initial Release.
+
+= 1.0.0 =
+Complete rewrite: updates for PHP 7, ImageMagick replaced by GD, added language support
