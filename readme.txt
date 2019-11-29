@@ -1,10 +1,10 @@
-=== OCR ===
+=== WP Tesseract ===
 Contributors: tattersoftware, formasfunction
 Donate link: https://paypal.me/tatter
 Tags: ocr, optical text recognition, images, attachments, media, tesseract
 Requires at least: 2.9
 Tested up to: 5.3.0
-Stable tag: 0.1.0
+Stable tag: 1.0.1
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -76,3 +76,6 @@ Initial Release.
 
 = 1.0.0 =
 Complete rewrite: updates for PHP 7, ImageMagick replaced by GD, added language support
+
+= 1.0.1 =
+Actions for automated publication, License updates, Name bugfix
