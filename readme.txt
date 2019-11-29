@@ -69,6 +69,10 @@ configuration option to `100%` and no resizing will occur.
 Hosting options are available. See [https://tattersoftware.com](https://tattersoftware.com)
 for contact info.
 
+= How about that great banner photo? =
+
+The plugin's banner photo is by Ekrulila from Pexels.
+
 == Changelog ==
 
 = 0.1.0 =

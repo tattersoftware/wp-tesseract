@@ -1,10 +1,10 @@
-# OCR  
+# WP Tesseract  
 **Contributors:** tattersoftware, formasfunction  
 **Donate link:** https://paypal.me/tatter  
 **Tags:** ocr, optical text recognition, images, attachments, media, tesseract  
 **Requires at least:** 2.9  
 **Tested up to:** 5.3.0  
-**Stable tag:** 0.1.0  
+**Stable tag:** 1.0.1  
 **Requires PHP:** 7.1  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
@@ -65,3 +65,7 @@ will occur.
 
 Hosting options are available. See [https://tattersoftware.com](https://tattersoftware.com)
 for contact info.
+
+## Attribution
+
+The plugin's banner photo is by Ekrulila from Pexels.
