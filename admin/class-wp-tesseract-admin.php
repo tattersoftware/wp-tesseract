@@ -249,11 +249,18 @@ class WP_Tesseract_Admin {
 		}
 
 		// Create a new post with the filename as title and OCR as content
-		wp_insert_post([
+		$data = [
 			'post_title'   => basename(get_attached_file($image_id)),
 			'post_content' => $ocr_text,
 			'post_status'  => 'publish',
-		]);
+		];
+
+		// Try the insert
+		if ($postId = wp_insert_post($data))
+		{
+			// Set the uploaded file as the featured image
+			add_post_meta($postId, '_thumbnail_id', $image_id, true);
+		}
 
 		return true;
 	}
