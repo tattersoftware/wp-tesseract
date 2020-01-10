@@ -3,9 +3,9 @@ Contributors: tattersoftware, formasfunction
 Donate link: https://paypal.me/tatter
 Tags: ocr, optical text recognition, images, attachments, media, tesseract
 Requires at least: 2.9
-Tested up to: 5.3.1
-Stable tag: 1.0.2
-Requires PHP: 7.1
+Tested up to: 5.3.2
+Stable tag: 1.0.3
+Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,3 +78,6 @@ Actions for automated publication, License updates, Name bugfix
 
 = 1.0.2 =
 Clean up docs, remove legacy references
+
+= 1.0.3 =
+Add uploaded file as featured image, bump PHP requirement for EOL
