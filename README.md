@@ -9,7 +9,7 @@ A plugin for extracting text from attached images using
 This plugin adds a new post named for each image upload containing any recognized text characters within the file.
 This text can then be edited for accuracy and used elsewhere on the site.
 
-This plugin requires PHP 7.2 (or later) and the following command line utility: 
+The OCR plugin requires a supported version of PHP with the GD extension and the following command line utility:
 * [Tesseract](https://github.com/tesseract-ocr/) for the actual OCR
 This utility must be manually installed on your server and executable by PHP.
 **This process, and consequently this plugin, is recommended only for advanced users.**
