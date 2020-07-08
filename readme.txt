@@ -4,7 +4,7 @@ Donate link: https://paypal.me/tatter
 Tags: ocr, optical text recognition, images, attachments, media, tesseract
 Requires at least: 2.9
 Tested up to: 5.4.2
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -81,3 +81,6 @@ Clean up docs, remove legacy references
 
 = 1.0.3 =
 Add uploaded file as featured image, bump PHP requirement for EOL
+
+= 1.0.4 =
+Backend tweaks for WordPress 5.4
