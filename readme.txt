@@ -3,7 +3,7 @@ Contributors: tattersoftware, formasfunction
 Donate link: https://paypal.me/tatter
 Tags: ocr, optical text recognition, images, attachments, media, tesseract
 Requires at least: 2.9
-Tested up to: 5.3.2
+Tested up to: 5.4.2
 Stable tag: 1.0.3
 Requires PHP: 7.2
 License: GPLv2 or later
